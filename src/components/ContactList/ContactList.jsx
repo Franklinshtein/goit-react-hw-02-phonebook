@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../ContactList/ContactList.module.css';
 
 const ContactList = ({ contacts, deleteContact }) => {
   return (
@@ -6,7 +7,7 @@ const ContactList = ({ contacts, deleteContact }) => {
       {contacts.map((contact) => (
         <li key={contact.id}>
           {contact.name} - {contact.number}
-          <button onClick={() => deleteContact(contact.id)}>Delete</button>
+          <button className={styles.delete_btn} onClick={() => deleteContact(contact.id)}>Delete</button>
         </li>
       ))}
     </ul>

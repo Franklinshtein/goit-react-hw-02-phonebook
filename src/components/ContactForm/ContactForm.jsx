@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import styles from '../ContactForm/ContactForm.module.css';
 
-const ContactForm = ({ addContact, contacts }) => {
+const ContactForm = ({ addContact, contacts, className }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -26,8 +27,9 @@ const ContactForm = ({ addContact, contacts }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.input_group} onSubmit={handleSubmit}>
       <input
+        className={styles.input_form}
         type="text"
         name="name"
         placeholder="Enter name"
@@ -36,6 +38,7 @@ const ContactForm = ({ addContact, contacts }) => {
         required
       />
       <input
+        className={styles.input_form}
         type="tel"
         name="number"
         placeholder="Enter phone number"
@@ -43,7 +46,7 @@ const ContactForm = ({ addContact, contacts }) => {
         onChange={(e) => setNumber(e.target.value)}
         required
       />
-      <button type="submit">Add Contact</button>
+      <button className={styles.add_contact} type="submit">Add Contact</button>
     </form>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../Filter/Filter.module.css';
 
 const Filter = ({ filter, setFilter }) => {
   const handleChange = (e) => {
@@ -6,7 +7,7 @@ const Filter = ({ filter, setFilter }) => {
   };
 
   return (
-    <input
+    <input className={styles.input_form}
       type="text"
       name="filter"
       placeholder="Search contacts"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ContactForm from '../components/ContactForm/ContactForm';
 import Filter from '../components/Filter/Filter';
 import ContactList from '../components/ContactList/ContactList';
-
+import styles from '../components/App.module.css';
 
 function App() {
   const [contacts, setContacts] = useState([
@@ -36,10 +36,10 @@ function App() {
   );
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
-      <h2>Contacts</h2>
+    <div className={styles.contact_list}>
+      <h1 className={styles.phonebook}>Phonebook</h1>
+      <ContactForm addContact={addContact} contacts={contacts} className={styles.form} />
+      <h2 className={styles.segment}>Contacts</h2>
       <Filter filter={filter} setFilter={setFilter} />
       <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
     </div>
