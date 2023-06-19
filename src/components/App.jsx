@@ -3,6 +3,8 @@ import ContactForm from '../components/ContactForm/ContactForm';
 import Filter from '../components/Filter/Filter';
 import ContactList from '../components/ContactList/ContactList';
 import styles from '../components/App.module.css';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 function App() {
   const [contacts, setContacts] = useState([
@@ -13,22 +15,35 @@ function App() {
   ]);
   const [filter, setFilter] = useState('');
 
+  const notyf = new Notyf();
+
   const addContact = (newContact) => {
     const isDuplicateName = contacts.some(
       (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
+    const isDuplicateNumber = contacts.some(
+      (contact) => contact.number === newContact.number
+    );
+
     if (isDuplicateName) {
-      alert(`${newContact.name} is already in the contacts list!`);
+      notyf.error(`${newContact.name} is already in the phonebook.`);
+      return;
+    }
+
+    if (isDuplicateNumber) {
+      notyf.error(`${newContact.number} is already in the phonebook.`);
       return;
     }
 
     setContacts([...contacts, newContact]);
+    notyf.success('Contact added successfully!');
   };
 
   const deleteContact = (id) => {
     const updatedContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(updatedContacts);
+    notyf.success('Contact deleted successfully!');
   };
 
   const filteredContacts = contacts.filter((contact) =>

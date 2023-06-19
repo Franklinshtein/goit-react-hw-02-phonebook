@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
 import styles from '../ContactForm/ContactForm.module.css';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 const ContactForm = ({ addContact, contacts, className }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const notyf = new Notyf();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if the contact name already exists
-    const existingContact = contacts.find((contact) => contact.name === name);
-    if (existingContact) {
-      alert(`${name} is already in the phonebook.`);
+    const existingContactByName = contacts.find(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    const existingContactByNumber = contacts.find(
+      (contact) => contact.number === number
+    );
+
+    if (existingContactByName) {
+      notyf.error(`${name} is already in the phonebook.`);
+      return;
+    }
+
+    if (existingContactByNumber) {
+      notyf.error(`${number} is already in the phonebook.`);
       return;
     }
 
@@ -24,6 +39,8 @@ const ContactForm = ({ addContact, contacts, className }) => {
     addContact(newContact);
     setName('');
     setNumber('');
+
+    notyf.success('Contact added successfully!');
   };
 
   return (
